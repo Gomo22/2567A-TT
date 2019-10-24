@@ -6,24 +6,24 @@ const int right_intake = 1;
 const int left_intake = 2;
 
 //variables
-int speed = 127;
+int ispeed = 127;
 ///////////////////////////////////////////////////////
 //motor definitions
 Motor intake1(right_intake, MOTOR_GEARSET_36, 0,  MOTOR_ENCODER_DEGREES);
 Motor intake2(left_intake, MOTOR_GEARSET_36, 0,  MOTOR_ENCODER_DEGREES);
 
 //usercontroL
-void anglerOP()
+void intakeOP()
 {
   if(controller.get_digital(DIGITAL_R1))
   {
-    intake1.move(speed);
-    intake2.move(speed);
+    intake1.move(ispeed);
+    intake2.move(ispeed);
   }
   else if(controller.get_digital(DIGITAL_R2))
   {
-    intake1.move(-speed);
-    intake2.move(-speed);
+    intake1.move(-ispeed);
+    intake2.move(-ispeed);
   }
   else
   {

@@ -5,21 +5,21 @@
 const int lift = 1;
 
 //variables
-int speed = 127;
+int lspeed = 127;
 ///////////////////////////////////////////////////////
 //motor definitions
 Motor lift1(lift, MOTOR_GEARSET_18, 0,  MOTOR_ENCODER_DEGREES);
 
 //usercontroL
-void anglerOP()
+void liftOP()
 {
   if(controller.get_digital(DIGITAL_L1))
   {
-    lift1.move(speed);
+    lift1.move(lspeed);
   }
   else if(controller.get_digital(DIGITAL_L2))
   {
-    lift1.move(-speed);
+    lift1.move(-lspeed);
   }
   else
   {
