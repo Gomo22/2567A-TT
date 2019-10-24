@@ -162,6 +162,7 @@ void driveAsync(double sp){
   reset();
   driveTarget = sp;
   driveMode = 1;
+
 }
 
 void turnAsync(double sp){
@@ -197,7 +198,7 @@ void slowDrive(double sp, double dp){
 
 /**************************************************/
 //task control
-int driveTask(){
+void driveTask(void* parameter){
   int prevError = 0;
 
   while(1){
@@ -219,6 +220,7 @@ int driveTask(){
     int derivative = error - prevError;
     prevError = error;
     int speed = error*kp + derivative*kd;
+    printf("%d\n", error);
 
     if(speed > maxSpeed)
       speed = maxSpeed;
@@ -229,10 +231,9 @@ int driveTask(){
     leftSlew(speed);
     rightSlew(speed);
   }
-  return(0);
 }
 
-int turnTask(){
+void turnTask(void* parameter){
   int prevError;
 
   while(1){
@@ -251,6 +252,7 @@ int turnTask(){
     int derivative = error - prevError;
     prevError = error;
     int speed = error*kp + derivative*kd;
+    printf("%d\n", error);
 
     if(speed > maxSpeed)
       speed = maxSpeed;
@@ -260,13 +262,12 @@ int turnTask(){
     leftSlew(-speed);
     rightSlew(speed);
     }
-  return(0);
 }
 
 
 /**************************************************/
 //operator control
-void tankOp(){
+void driveOp(){
   driveMode = 2; //turns off autonomous tasks
   left1.move(controller.get_analog(ANALOG_LEFT_Y));
   left2.move(controller.get_analog(ANALOG_LEFT_Y));
