@@ -1,11 +1,11 @@
 #ifndef _BASE_H_
 #define _BASE_H_
 
-void brake();
-void coast();
+
+void driveTask(void* parameter);
+void turnTask(void* parameter);
 void resetDrive();
-void resetALl();
-void setSlant(int s);
+void reset();
 void setSpeed(int speed);
 bool isDriving();
 void driveAsync(int sp);

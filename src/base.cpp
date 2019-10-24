@@ -72,6 +72,13 @@ void reset(){
   right(0);
 }
 
+void resetDrive(){
+  left1.tare_position();
+  left2.tare_position();
+  right1.tare_position();
+  right2.tare_position();
+}
+
 int drivePos(){
   return (left1.get_position() + left2.get_position())/2;
 }
