@@ -94,5 +94,4 @@ void opcontrol() {
 	intakeOP();
 	liftOP();
 	anglerOP();
-
 }

@@ -45,6 +45,7 @@
 #include "intake.hpp"
 #include "lift.hpp"
 #include "intake.hpp"
+#include "angler.hpp"
 /**
  * If you find doing pros::Motor() to be tedious and you'd prefer just to do
  * Motor, you can use the namespace with the following commented out line.
@@ -54,7 +55,7 @@
  * namespace.
  */
   using namespace pros;
-  using namespace pros::literals;
+  //using namespace pros::literals;
 // using namespace okapi;
  extern Controller controller;
 /**

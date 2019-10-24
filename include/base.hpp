@@ -4,8 +4,6 @@
 
 void driveTask(void* parameter);
 void turnTask(void* parameter);
-void resetDrive();
-void reset();
 void setSpeed(int speed);
 bool isDriving();
 void driveAsync(int sp);
