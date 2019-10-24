@@ -2,7 +2,7 @@
 //user edits
 
 //motor ports
-const int lift = 1;
+const int lift = 14;
 
 //variables
 int lspeed = 127;

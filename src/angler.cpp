@@ -2,7 +2,7 @@
 //user edits
 
 //motor ports
-const int angler = 1;
+const int angler = 7;
 
 //variables
 int aspeed = 30;

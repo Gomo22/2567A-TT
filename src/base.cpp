@@ -5,8 +5,8 @@
 //motor ports
 const int left_front = 1;
 const int left_rear = 2;
-const int right_front = 3;
-const int right_rear = 4;
+const int right_front = 11;
+const int right_rear = 12;
 
 //distance constants
 const int distance_constant = 545; //ticks per tile
@@ -43,8 +43,8 @@ static int maxSpeed = MAX;
 //motors
 Motor left1(left_front, MOTOR_GEARSET_18, 0,  MOTOR_ENCODER_DEGREES);
 Motor left2(left_rear, MOTOR_GEARSET_18, 0,  MOTOR_ENCODER_DEGREES);
-Motor right1(right_front, MOTOR_GEARSET_18, 0,  MOTOR_ENCODER_DEGREES);
-Motor right2(right_rear, MOTOR_GEARSET_18, 0,  MOTOR_ENCODER_DEGREES);
+Motor right1(right_front, MOTOR_GEARSET_18, 1,  MOTOR_ENCODER_DEGREES);
+Motor right2(right_rear, MOTOR_GEARSET_18, 1,  MOTOR_ENCODER_DEGREES);
 
 /**************************************************/
 //basic control
@@ -274,8 +274,8 @@ void turnTask(void* parameter){
 
 /**************************************************/
 //operator control
-void driveOp(){
-  driveMode = 2; //turns off autonomous tasks
+void driveOP(){
+  //driveMode = 2; //turns off autonomous tasks
   left1.move(controller.get_analog(ANALOG_LEFT_Y));
   left2.move(controller.get_analog(ANALOG_LEFT_Y));
   right1.move(controller.get_analog(ANALOG_RIGHT_Y));
