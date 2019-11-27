@@ -9,7 +9,7 @@ int aspeed = 30;
 ///////////////////////////////////////////////////////
 //motor definitions
 Motor angle(angler, MOTOR_GEARSET_36, 0,  MOTOR_ENCODER_DEGREES);
-
+ADIPotentiometer anglePot ('A');
 //usercontroL
 void anglerOP()
 {
@@ -24,6 +24,35 @@ void anglerOP()
   else
   {
     angle.move(0);
+  }
+}
+
+int tiltSpeed = 0;
+void tilt(int tiltTarget)
+{
+  tiltSpeed = tiltTarget;
+  angle.move(tiltSpeed);
+}
+void anglerOP1()
+{
+  double kp = 1.4;
+  int pos = anglePot.get_value();
+  int target = 550;
+  int error = target - pos;
+  int anglePower = (error * kp);
+
+  if(controller.get_digital(DIGITAL_X))
+  {
+   tilt(anglePower);
+  }
+  else if(controller.get_digital(DIGITAL_B))
+  {
+  target = -550;
+  tilt(-anglePower);
+  }
+  else
+  {
+    tilt(0);
   }
 }
 ///////////////////////////////////////////////////////

@@ -38,13 +38,31 @@ static int driveMode = 1;
 static int driveTarget = 0;
 static int turnTarget = 0;
 static int maxSpeed = MAX;
-
+int driveError;
+int turnError;
 
 //motors
 Motor left1(left_front, MOTOR_GEARSET_18, 0,  MOTOR_ENCODER_DEGREES);
 Motor left2(left_rear, MOTOR_GEARSET_18, 0,  MOTOR_ENCODER_DEGREES);
 Motor right1(right_front, MOTOR_GEARSET_18, 1,  MOTOR_ENCODER_DEGREES);
 Motor right2(right_rear, MOTOR_GEARSET_18, 1,  MOTOR_ENCODER_DEGREES);
+
+//LCD Display
+int getBatteryLevel()
+{
+  return battery::get_capacity();
+}
+
+int getDriveError()
+{
+  return driveError;
+}
+
+int getTurnError()
+{
+  return turnError;
+}
+
 
 /**************************************************/
 //basic control
@@ -227,7 +245,7 @@ void driveTask(void* parameter){
     int derivative = error - prevError;
     prevError = error;
     int speed = error*kp + derivative*kd;
-    printf("%d\n", error);
+    driveError = error;
 
     if(speed > maxSpeed)
       speed = maxSpeed;
@@ -259,7 +277,7 @@ void turnTask(void* parameter){
     int derivative = error - prevError;
     prevError = error;
     int speed = error*kp + derivative*kd;
-    printf("%d\n", error);
+    turnError = error;
 
     if(speed > maxSpeed)
       speed = maxSpeed;

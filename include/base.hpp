@@ -6,10 +6,12 @@ void driveTask(void* parameter);
 void turnTask(void* parameter);
 void setSpeed(int speed);
 bool isDriving();
-void driveAsync(int sp);
-void drive(int sp);
-void turnAsync(int sp);
-void turn(int sp);
+void driveAsync(double sp);
+void drive(double sp);
+void driveAsync(double sp);
+void turn(double sp);
 void driveOP();
-
+int getBatteryLevel();
+int getDriveError();
+int getTurnError();
 #endif
