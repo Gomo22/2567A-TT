@@ -3,29 +3,29 @@
 //user editable constants
 
 //motor ports
-const int left_front = 1;
-const int left_rear = 2;
-const int right_front = 11;
-const int right_rear = 12;
+const int left_front = 11;
+const int left_rear = 12;
+const int right_front = 19;
+const int right_rear = 20;
 
 //distance constants
-const int distance_constant = 545; //ticks per tile
-const double degree_constant = 2.3; //ticks per degree
+const int distance_constant = 620; //ticks per tile
+const double degree_constant = 3.9; //ticks per degree
 
 /**************************************************/
 //advanced tuning (PID and slew)
 
 //slew control (autonomous only)
-const int accel_step = 9; //smaller number = more slew
+const int accel_step = 8; //smaller number = more slew
 const int deccel_step = 256; //200 = no slew
 
 //straight driving constants
-const double driveKP = .3;
-const double driveKD = .5;
+const double driveKP = .4;
+const double driveKD = .6;
 
 //turning constants
 const double turnKP = .8;
-const double turnKD = 3;
+const double turnKD = 2.1;
 
 
 /**************************************************/
@@ -38,13 +38,31 @@ static int driveMode = 1;
 static int driveTarget = 0;
 static int turnTarget = 0;
 static int maxSpeed = MAX;
-
+int driveError;
+int turnError;
 
 //motors
 Motor left1(left_front, MOTOR_GEARSET_18, 0,  MOTOR_ENCODER_DEGREES);
 Motor left2(left_rear, MOTOR_GEARSET_18, 0,  MOTOR_ENCODER_DEGREES);
 Motor right1(right_front, MOTOR_GEARSET_18, 1,  MOTOR_ENCODER_DEGREES);
 Motor right2(right_rear, MOTOR_GEARSET_18, 1,  MOTOR_ENCODER_DEGREES);
+
+//LCD Display
+int getBatteryLevel()
+{
+  return battery::get_capacity();
+}
+
+int getDriveError()
+{
+  return driveError;
+}
+
+int getTurnError()
+{
+  return turnError;
+}
+
 
 /**************************************************/
 //basic control
@@ -227,7 +245,7 @@ void driveTask(void* parameter){
     int derivative = error - prevError;
     prevError = error;
     int speed = error*kp + derivative*kd;
-    printf("%d\n", error);
+    driveError = error;
 
     if(speed > maxSpeed)
       speed = maxSpeed;
@@ -237,6 +255,7 @@ void driveTask(void* parameter){
     //set motors
     leftSlew(speed);
     rightSlew(speed);
+    printf("%d\n", error);
   }
 }
 
@@ -259,7 +278,7 @@ void turnTask(void* parameter){
     int derivative = error - prevError;
     prevError = error;
     int speed = error*kp + derivative*kd;
-    printf("%d\n", error);
+    turnError = error;
 
     if(speed > maxSpeed)
       speed = maxSpeed;
@@ -268,6 +287,7 @@ void turnTask(void* parameter){
 
     leftSlew(-speed);
     rightSlew(speed);
+    printf("%d\n", error);
     }
 }
 

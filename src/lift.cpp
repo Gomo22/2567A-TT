@@ -2,7 +2,7 @@
 //user edits
 
 //motor ports
-const int lift = 14;
+const int lift = 18;
 
 //variables
 int lspeed = 127;
@@ -28,3 +28,14 @@ void liftOP()
 }
 ///////////////////////////////////////////////////////
 //autonomous functions
+void expand(int lheight, bool up)
+{
+    if(up)
+    {
+      lift1.move_relative(lheight, 100);
+    }
+    else
+    {
+      lift1.move_relative(lheight, -100);
+    }
+}

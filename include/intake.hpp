@@ -2,5 +2,5 @@
 #define _INTAKE_H_
 
 void intakeOP();
-
+void intake(int icount);
 #endif

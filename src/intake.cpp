@@ -1,9 +1,10 @@
+
 #include "main.h"
 //user edits
 
 //motor ports
-const int right_intake = 5;
-const int left_intake = 6;
+const int right_intake = 1;
+const int left_intake = 10;
 
 //variables
 int ispeed = 127;
@@ -15,21 +16,26 @@ Motor intake2(left_intake, MOTOR_GEARSET_36, 1,  MOTOR_ENCODER_DEGREES);
 //usercontroL
 void intakeOP()
 {
-  if(controller.get_digital(DIGITAL_R1))
-  {
-    intake1.move(ispeed);
-    intake2.move(ispeed);
-  }
-  else if(controller.get_digital(DIGITAL_R2))
-  {
-    intake1.move(-ispeed);
-    intake2.move(-ispeed);
-  }
-  else
-  {
-    intake1.move(0);
-    intake2.move(0);
-  }
+if(controller.get_digital(DIGITAL_R1))
+{
+  intake1.move(ispeed);
+  intake2.move(ispeed);
+}
+else if(controller.get_digital(DIGITAL_R2))
+{
+  intake1.move(-ispeed);
+  intake2.move(-ispeed);
+}
+else
+{
+  intake1.move(0);
+  intake2.move(0);
+}
 }
 ///////////////////////////////////////////////////////
 //autonomous functions
+void intake(int icount)
+{
+  intake1.move_relative(icount, ispeed);
+  intake2.move_relative(icount, ispeed);
+}
