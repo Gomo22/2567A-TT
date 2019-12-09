@@ -1,7 +1,6 @@
 
 #include "main.h"
 //user edits
-
 //motor ports
 const int angler = 2;
 
@@ -18,7 +17,10 @@ void anglerOP()
 
 if(controller.get_digital(DIGITAL_X))
 {
-angle.move_absolute(670, aspeed);
+  if(angle.get_position() <= 500)
+    angle.move_absolute(500, 100);
+  else
+    angle.move_absolute(650, 30);
 }
 else if(controller.get_digital(DIGITAL_B))
 {
@@ -30,63 +32,28 @@ else
 }
 }
 
-int tiltSpeed = 0;
-void tilt(int tiltTarget)
-{
-  tiltSpeed = tiltTarget;
-  angle.move(tiltSpeed);
-}
-
-void anglerOP1()
-{
-  double kp = 1.4;
-  int pos = angle.get_position();//anglePot.get_value();
-  int target = 640;
-  int error = target - pos;
-  int anglePower = (error * kp);
-
-  if(controller.get_digital(DIGITAL_X))
-  {
-  target = 550;
-   tilt(anglePower);
-  }
-  else if(controller.get_digital(DIGITAL_B))
-  {
-    angle.move(-127);
-  }
-  else
-  {
-    tilt(0);
-  }
-}
-
-int tiltSpeed = 0;
-void tilt(int tiltTarget)
-{
-  tiltSpeed = tiltTarget;
-  angle.move(tiltSpeed);
-}
-void anglerOP1()
-{
-  double kp = 1.4;
-  int pos = anglePot.get_value();
-  int target = 550;
-  int error = target - pos;
-  int anglePower = (error * kp);
-
-  if(controller.get_digital(DIGITAL_X))
-  {
-   tilt(anglePower);
-  }
-  else if(controller.get_digital(DIGITAL_B))
-  {
-  target = -550;
-  tilt(-anglePower);
-  }
-  else
-  {
-    tilt(0);
-  }
-}
 ///////////////////////////////////////////////////////
 //autonomous functions
+void tilting()
+{
+  while(angle.get_position() != 650)
+  delay(20);
+}
+
+void tiltAsync(bool vert){
+  if(vert)
+  {
+  if(angle.get_position() <= 500)
+    angle.move_absolute(500, 100);
+  else
+    angle.move_absolute(650, 30);
+  }
+  else
+  angle.move_absolute(0, 70);
+}
+
+void tilt(bool vert)
+{
+  tiltAsync(vert);
+  tilting();
+}
