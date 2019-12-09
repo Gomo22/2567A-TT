@@ -6,8 +6,6 @@
 const int right_intake = 1;
 const int left_intake = 10;
 
-//variables
-int ispeed = 127;
 ///////////////////////////////////////////////////////
 //motor definitions
 Motor intake1(right_intake, MOTOR_GEARSET_36, 0,  MOTOR_ENCODER_DEGREES);
@@ -18,13 +16,13 @@ void intakeOP()
 {
 if(controller.get_digital(DIGITAL_R1))
 {
-  intake1.move(ispeed);
-  intake2.move(ispeed);
+  intake1.move(127);
+  intake2.move(127);
 }
 else if(controller.get_digital(DIGITAL_R2))
 {
-  intake1.move(-ispeed);
-  intake2.move(-ispeed);
+  intake1.move(-127);
+  intake2.move(-127);
 }
 else
 {
@@ -34,8 +32,8 @@ else
 }
 ///////////////////////////////////////////////////////
 //autonomous functions
-void intake(int icount)
+void intake(int ispeed)
 {
-  intake1.move_relative(icount, ispeed);
-  intake2.move_relative(icount, ispeed);
+intake1.move_velocity(ispeed);
+intake2.move_velocity(ispeed);
 }
