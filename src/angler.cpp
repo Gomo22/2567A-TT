@@ -59,5 +59,34 @@ void anglerOP1()
     tilt(0);
   }
 }
+
+int tiltSpeed = 0;
+void tilt(int tiltTarget)
+{
+  tiltSpeed = tiltTarget;
+  angle.move(tiltSpeed);
+}
+void anglerOP1()
+{
+  double kp = 1.4;
+  int pos = anglePot.get_value();
+  int target = 550;
+  int error = target - pos;
+  int anglePower = (error * kp);
+
+  if(controller.get_digital(DIGITAL_X))
+  {
+   tilt(anglePower);
+  }
+  else if(controller.get_digital(DIGITAL_B))
+  {
+  target = -550;
+  tilt(-anglePower);
+  }
+  else
+  {
+    tilt(0);
+  }
+}
 ///////////////////////////////////////////////////////
 //autonomous functions
