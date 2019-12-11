@@ -17,8 +17,10 @@ void anglerOP()
 
 if(controller.get_digital(DIGITAL_X))
 {
-  if(angle.get_position() <= 500)
-    angle.move_absolute(500, 100);
+  if(angle.get_position() <= 350)
+    angle.move_absolute(350, 55);
+  else if(angle.get_position() <= 450 && angle.get_position() > 350)
+      angle.move_absolute(450, 45);
   else
     angle.move_absolute(650, 30);
 }
