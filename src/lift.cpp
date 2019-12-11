@@ -15,11 +15,13 @@ void liftOP()
 {
   if(controller.get_digital(DIGITAL_L1))
   {
+    angle.move_absolute(300, 40);
     lift1.move(lspeed);
   }
   else if(controller.get_digital(DIGITAL_L2))
   {
     lift1.move(-lspeed);
+    angle.move_absolute(0, -100);
   }
   else
   {

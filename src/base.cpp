@@ -17,7 +17,7 @@ const double degree_constant = 3.9; //ticks per degree
 
 //slew control (autonomous only)
 const int accel_step = 8; //smaller number = more slew
-const int deccel_step = 256; //200 = no slew
+const int deccel_step = 256; //256 = no slew
 
 //straight driving constants
 const double driveKP = .4;
@@ -192,6 +192,10 @@ void driveAsync(double sp){
 
 void turnAsync(double sp){
   sp *= degree_constant;
+  if(mirror.get_value())
+ {
+   sp = -sp;
+ }
   reset();
   turnTarget = sp;
   driveMode = 0;

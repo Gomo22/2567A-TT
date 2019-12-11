@@ -1,5 +1,10 @@
 #include "main.h"
 
+ADIDigitalIn autonClose('B');
+ADIDigitalIn autonFar('C');
+ADIDigitalIn mirror('A');
+ADIDigitalIn skill('D');
+ADIDigitalIn test('E');
 /**
  * A callback function for LLEMU's center button.
  *
@@ -44,25 +49,45 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void red(){
+void front(){
 	drive(1.0);
 	turn(90);
+}
+
+void back(){
+
+}
+
+void skills(){
+
+}
+
+void tests(){
+
 }
 
 void autonomous() {
 	Task drive_task (driveTask,NULL,TASK_PRIORITY_DEFAULT,TASK_STACK_DEPTH_DEFAULT,"");
 	Task turn_task (turnTask,NULL,TASK_PRIORITY_DEFAULT,TASK_STACK_DEPTH_DEFAULT,"");
 //insert autons here
-//	drive(1.2);
-	//drive(-1.8);
-	turn(90);
-	drive(1.0);
-	turn(-90);
-
+if(autonClose.get_value())
+ {
+	 front();
+ }
+ else if(autonFar.get_value())
+ {
+	 back();
+ }
+ else if(skill.get_value())
+ {
+	 skills();
+ }
+ else if(test.get_value())
+ {
+	 tests();
+ }
 	drive_task.remove();
   turn_task.remove();
-
-
 }
 
 /**
